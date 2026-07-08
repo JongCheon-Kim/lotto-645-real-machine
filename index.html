@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 로또 6/45 실물형 투명볼 추첨 실험기</title>
+  <!-- PWA app shell -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b5f7a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="로또추첨">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
   <style>
     :root{
       --bg0:#030711; --bg1:#071629; --bg2:#0a223a;
@@ -71,7 +80,7 @@
     .info{margin-top:16px;padding:14px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.info div{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:16px;padding:12px;color:#dbe8ff;font-size:.91rem;line-height:1.5}.info b{display:block;color:#fff;margin-bottom:4px}
     .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;background:rgba(8,17,32,.96);border:1px solid rgba(126,231,255,.35);color:#fff;border-radius:999px;padding:11px 16px;box-shadow:var(--shadow);transition:.22s;z-index:999}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     @media(max-width:1050px){.grid{grid-template-columns:1fr}.machine-stage{height:560px}.controls{grid-template-columns:repeat(2,1fr)}.controls .copy{grid-column:1/-1}.info{grid-template-columns:1fr}.acrylic-frame{left:3%;width:94%}#sphere{left:4%;width:74%;height:340px}.pillar.p2{left:auto;right:4%}.nozzle{left:74%;}.exit-label{left:73%;}.chute{left:68%;width:28%;}.slot-rack{left:3%;right:3%}}
-    @media(max-width:680px){:root{--ball:30px}.app{width:96vw;padding-top:20px}.machine-card,.side{padding:12px;border-radius:20px}.machine-stage{height:520px}.topbar{flex-direction:column;align-items:flex-start}.acrylic-frame{display:none}#sphere{left:2%;top:54px;width:96%;height:310px}.stand{left:16%;width:68%;top:344px}.pillar{display:none}.nozzle,.chute,.exit-label{display:none}.slot-title{left:16px;top:386px}.slot-rack{height:86px;bottom:18px;grid-template-columns:repeat(3,1fr);gap:8px}.slot .ball{width:36px;height:36px}.stats{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.result-box{min-height:60px}}
+    @media(max-width:680px){.pwa-guide .steps{grid-template-columns:1fr}.pwa-guide{padding:14px}.pwa-guide .step{font-size:.88rem}:root{--ball:30px}.app{width:96vw;padding-top:20px}.machine-card,.side{padding:12px;border-radius:20px}.machine-stage{height:520px}.topbar{flex-direction:column;align-items:flex-start}.acrylic-frame{display:none}#sphere{left:2%;top:54px;width:96%;height:310px}.stand{left:16%;width:68%;top:344px}.pillar{display:none}.nozzle,.chute,.exit-label{display:none}.slot-title{left:16px;top:386px}.slot-rack{height:86px;bottom:18px;grid-template-columns:repeat(3,1fr);gap:8px}.slot .ball{width:36px;height:36px}.stats{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.result-box{min-height:60px}}
   </style>
 </head>
 <body>
@@ -401,6 +410,16 @@
   window.addEventListener('resize', () => setTimeout(init, 140));
   init();
 })();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(function () { console.log("Service Worker registered"); })
+      .catch(function (error) { console.log("Service Worker registration failed:", error); });
+  });
+}
 </script>
 </body>
 </html>
